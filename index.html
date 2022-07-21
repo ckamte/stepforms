@@ -6,7 +6,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./assets/css/bootstrap-icons.css" rel="stylesheet">
     <style>
         /* Hide all steps by default: */
         .step-form-tab {
@@ -29,17 +28,17 @@
         <form id="regForm" action="/action_page.php">
             <div class="step-form-tab">Name:
                 <input type="text" class="form-control mb-3" placeholder="Name" required>
-                <input type="email" class="form-control mb-3" placeholder="Name" id="email" name="email" required>
+                <input type="email" class="form-control mb-3" placeholder="email" required>
                 <input type="number" class="form-control mb-3" placeholder="number not required">
             </div>
             <div class="step-form-tab">Contact Info:
-                <input type="text" class="form-control" placeholder="Name" required>
+                <input type="text" class="form-control" placeholder="phone" required>
             </div>
             <div class="step-form-tab">Birthday:
-                <input type="text" class="form-control" placeholder="Name" required>
+                <input type="text" class="form-control" placeholder="address" required>
             </div>
             <div class="step-form-tab">Login Info:
-                <input type="email" class="form-control" placeholder="Name" required>
+                <input type="email" class="form-control" placeholder="email" required>
             </div>
             <div class="mt-3">
                 <div class="progress mb-3">
@@ -47,10 +46,8 @@
                         aria-valuemin="0" aria-valuemax="100" id="formProgress"></div>
                 </div>
                 <div class="text-center">
-                    <button type="button" class="btn btn-outline-primary" id="prevBtn"><i
-                            class="bi bi-arrow-left-circle me-2"></i>Prev</button>
-                    <button type="button" class="btn btn-outline-primary" id="nextBtn"><i
-                            class="bi bi-arrow-right-circle me-2"></i>Next</button>
+                    <button type="button" class="btn btn-outline-primary" id="prevBtn">Prev</button>
+                    <button type="button" class="btn btn-outline-primary" id="nextBtn">Next</button>
                     <button type="submit" class="btn btn-outline-warning" id="submBtn">Submit</button>
                 </div>
             </div>
