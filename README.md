@@ -1,4 +1,4 @@
 # stepforms
-Step form with bootstrap
-Input validation
+Step form with bootstrap,
+Input validation,
 Progress bar
