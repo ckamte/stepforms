@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./assets/css/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        /* Hide all steps by default: */
+        .step-form-tab {
+            display: none;
+        }
+
+        .show {
+            display: block;
+        }
+
+        .hide {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <h1>Register:</h1>
+        <form id="regForm" action="/action_page.php">
+            <div class="step-form-tab">Name:
+                <input type="text" class="form-control mb-3" placeholder="Name" required>
+                <input type="email" class="form-control mb-3" placeholder="Name" id="email" name="email" required>
+                <input type="number" class="form-control mb-3" placeholder="number not required">
+            </div>
+            <div class="step-form-tab">Contact Info:
+                <input type="text" class="form-control" placeholder="Name" required>
+            </div>
+            <div class="step-form-tab">Birthday:
+                <input type="text" class="form-control" placeholder="Name" required>
+            </div>
+            <div class="step-form-tab">Login Info:
+                <input type="email" class="form-control" placeholder="Name" required>
+            </div>
+            <div class="mt-3">
+                <div class="progress mb-3">
+                    <div class="progress-bar bg-info" role="progressbar" style="width: 0%" aria-valuenow="0"
+                        aria-valuemin="0" aria-valuemax="100" id="formProgress"></div>
+                </div>
+                <div class="text-center">
+                    <button type="button" class="btn btn-outline-primary" id="prevBtn"><i
+                            class="bi bi-arrow-left-circle me-2"></i>Prev</button>
+                    <button type="button" class="btn btn-outline-primary" id="nextBtn"><i
+                            class="bi bi-arrow-right-circle me-2"></i>Next</button>
+                    <button type="submit" class="btn btn-outline-warning" id="submBtn">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script type="application/javascript" src="./assets/js/jquery.min.js"></script>
+    <script type="application/javascript" src="./assets/js/popper.min.js"></script>
+    <script type="application/javascript" src="./assets/js/bootstrap.bundle.min.js"></script>
+    <script>
+        var currentTab = 0; // Current tab is set to be the first tab (0)
+        var tab = $(".step-form-tab");
+        var prev = $("#prevBtn");
+        var next = $("#nextBtn");
+        var subm = $("#submBtn");
+
+        showTab(currentTab); // Display the first tab
+
+        prev.on("click", function () {
+            pageNav(-1);
+        });
+
+        next.on("click", function () {
+            pageNav(1);
+        });
+
+        function showTab(n) {
+            tab.eq(n).addClass("show");
+            if (n == 0) {
+                prev.attr("disabled", true);
+            } else {
+                prev.attr("disabled", false);
+            }
+            if (n == (tab.length - 1)) {
+                next.attr("disabled", true);
+                subm.attr("disabled", false);
+            } else {
+                next.attr("disabled", false);
+                subm.attr("disabled", true);
+            }
+            validateOnInput();
+        }
+
+        function pageNav(n) {
+            if (n == 1 && (!tab.eq(currentTab).hasClass("completed"))) {
+                if (inputValidate()) {
+                    tab.eq(currentTab).addClass("completed");
+                    showProgress();
+                } else {
+                    return false;
+                }
+            }
+            tab.eq(currentTab).removeClass("show");
+            currentTab = currentTab + n;
+            showTab(currentTab);
+        }
+
+        function validateOnInput() {
+            tab.eq(currentTab).find("input").each(function () {
+                $(this).on('input', function (e) {
+                    if (e.target.validity.typeMismatch) {
+                        $(this).addClass("is-invalid");
+                        next.attr("disabled", true);
+                    } else {
+                        $(this).removeClass("is-invalid");
+                        if (currentTab == (tab.length - 1)) {
+                            next.attr("disabled", true);
+                        } else {
+                            next.attr("disabled", false);
+                        }
+                    }
+                });
+            });
+        }
+
+        function inputValidate() {
+            var i, valid = true;
+            tab.eq(currentTab).find("input").each(function () {
+                if ($(this).prop("required")) {
+                    if ($(this).val() == "") {
+                        $(this).addClass("is-invalid");
+                        valid = false;
+                    } else {
+                        if ($(this).hasClass("is-invalid")) {
+                            $(this).removeClass("is-invalid");
+                        }
+                    }
+                }
+            });
+            return valid;
+        }
+
+        function showProgress() {
+            var progressBar = $('#formProgress');
+            var currProgress = progressBar.attr('aria-valuenow');
+            var newProgress = Number(currProgress) + 25;    /* 100/4 (tabs) */
+            progressBar.attr('aria-valuenow', newProgress);
+            progressBar.attr('style', "width : " + newProgress + "%");
+        }
+    </script>
+</body>
+
+</html>
